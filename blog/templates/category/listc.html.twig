@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Catégories{% endblock %}
+
+{% block body %}
+    <h1>Catégories : </h1>
+    <div class="row">
+
+        {% for categorie in categories %}
+            <div class="card border-primary mb-3 me-2" style="max-width: 20rem;">
+                <div class="card-body">
+                    <h4 class="card-title">{{categorie.name}}</h4>
+                   
+                    <a class="btn btn-secondary" href="{{ path('category_show', {slug: categorie.slug}) }}">Voir la catégorie</a>
+                </div>
+            </div>
+        
+
+        {% endfor %}
+
+    </div>
+{% endblock %}
