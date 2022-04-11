@@ -12,7 +12,7 @@
                 <div class="card-body">
                     <h4 class="card-title">{{article.title}}</h4>
                     <p class="card-text">{{article.content}}</p>
-                    <a href="#">{{ article.slug }}</a>
+                    <a class="btn btn-secondary" href="{{ path('blog_show', {slug: article.slug}) }}">Voir l'article</a>
                 </div>
             </div>
         
