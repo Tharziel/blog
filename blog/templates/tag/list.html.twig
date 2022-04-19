@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tags{% endblock %}
+
+{% block body %}
+    <h1>Tags : </h1>
+    <div class="row">
+
+        {% for tag in tags %}
+            <div class="card border-primary mb-3 me-2" style="max-width: 20rem;">
+                <div class="card-header"> {{tag.name}} 
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{tag.name}}</p>
+                    <a class="btn btn-secondary" href="{{ path('tag_show', {id: tag.id}) }}">Voir le tag</a>
+                </div>
+            </div>
+        
+
+        {% endfor %}
+
+    </div>
+{% endblock %}

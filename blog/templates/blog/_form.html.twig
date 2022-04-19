@@ -1,7 +1,10 @@
 {{ form_start(form) }}
     {{ form_row(form.title, {'attr':{'class':'form-control'}, 'label':'Titre : '}) }}
     {{ form_row(form.content, {'attr':{'class':'form-control'}, 'label':'Contenu : '}) }}
+    {{ form_row(form.category, {'attr':{'class':'form-control'}, 'label':'Categorie : '}) }}
+    {{ form_row(form.tags, {'attr':{'class':'form-control'}, 'label':'Tag : '}) }}
     {{ form_row(form.isPublished, {'attr':{'class':'form-check-input'}, 'label':'Publier l\'article ?'}) }}
+    
 
 <button type="submit" class="btn btn-primary">Envoyer</button>
 {{ form_end(form) }}

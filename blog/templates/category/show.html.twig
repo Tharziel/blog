@@ -4,12 +4,11 @@
 {% block body %}
     <h1>Consulter une categorie</h1>
     <div class="card border-primary mb-3 me-2" style="max-width: 20rem;">
-                
-                <div class="card-body">
-                    <h4 class="card-title">{{categorie.title}}</h4>
+        <div class="card-body">
+            <h4 class="card-title">{{category.name}}</h4>
                   
-                    <a class="btn btn-warning" href="{{ path('categorie_edit', {slug: categorie.slug}) }}">Modifier</a> 
-                    <a class="btn btn-danger" href="{{ path(categorie_delete', {slug: categorie.slug}) }}">Supprimer</a>
-                </div>
-            </div>
+            <a class="btn btn-outline-warning" href="{{ path('category_edit', {slug: category.slug}) }}">Modifier</a> 
+            <a class="btn btn-outline-danger" href="{{ path('category_delete', {slug: category.slug}) }}">Supprimer</a>
+        </div>
+    </div>
 {% endblock %}

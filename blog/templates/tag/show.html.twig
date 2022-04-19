@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block title %}Tag{% endblock %}
+
+{% block body %}
+    <h1>Consulter un tag</h1>
+    <div class="card border-primary mb-3 me-2" style="max-width: 20rem;">
+                <div class="card-header"> {{tag.name}}
+            </div>
+                <div class="card-body">
+                    <h4 class="card-title">{{tag.name}}</h4>
+                    
+                    <a class="btn btn-outline-warning" href="{{ path('tag_edit', {id: tag.id}) }}">Modifier</a> 
+                    <a class="btn btn-outline-danger" href="{{ path('tag_delete', {id: tag.id}) }}">Supprimer</a>
+                </div>
+            </div>
+{% endblock %}

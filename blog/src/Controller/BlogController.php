@@ -33,7 +33,7 @@ class BlogController extends AbstractController
     public function new(Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
     {
         $article = new Article();
-        $form = $this->createForm(ArticleType::class, $article);//Résolution de portée
+        $form = $this->createForm(ArticleType::class, $article);//Opérateur de résolution de portée
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
