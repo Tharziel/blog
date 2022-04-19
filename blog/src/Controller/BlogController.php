@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Exception;
 use App\Entity\Article;
+use App\Form\FilterType;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,12 +19,23 @@ class BlogController extends AbstractController
     /**
      * @Route("/liste-des-articles", name="blog_list")
      */
-    public function list(ArticleRepository $repo): Response
+    public function list(Request $request, ArticleRepository $repo): Response
     {
+
+        $filter = $this->createForm(FilterType::class);
+        $filter->handleRequest($request);
         $articles = $repo->findAll();
 
+        if($filter->isSubmitted() && $filter->isValid()){
+            $category = $filter['category']->getData();
+            $order = ($filter['dateOrder']->getData()? 'ASC' : 'DESC');
+            $articles = $repo->findBy(['category' => $category], ['updatedAt' => $order]);
+            
+        }
+
         return $this->render('blog/list.html.twig', [
-            'articles' => $articles
+            'articles' => $articles,
+            'filter' => $filter->createView()
         ]);
     }
 
@@ -43,8 +55,10 @@ class BlogController extends AbstractController
             $em->persist($article);
 
             try{
-                $em->flush($article);
+                $em->flush();
+                $this->addFlash('success', 'Création de l\'article réussie !');
             }catch(Exception $e){
+                $this->addFlash('danger', 'Echec lors de la création de l\'article !');
                 return $this->redirectToRoute('blog_new');
             }
 
@@ -76,7 +90,15 @@ class BlogController extends AbstractController
     {
      
         $em->remove($article);
-        $em->flush();
+       
+        try{
+            $em->flush();
+            $this->addFlash('success', 'Article supprimé !');
+
+        }catch(Exception $e){
+            $this->addFlash('danger', 'Echec lors de la suppression de l\'article !');
+        }
+        
 
         return $this->redirectToRoute('blog_list');
 
@@ -94,7 +116,14 @@ class BlogController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
 
             $article->setUpdatedAt(new \Datetime);
-            $em->flush();
+            try{
+                $em->flush();
+                $this->addFlash('success', 'Article modifié !');
+
+            }catch(Exception $e){
+                $this->addFlash('danger', 'Echec lors de la modification de l\'article !');
+            }
+            
             return $this->redirectToRoute('blog_list');
         }
 

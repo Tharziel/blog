@@ -43,7 +43,13 @@ class TagController extends AbstractController
     public function delete(Tag $tag, EntityManagerInterface $em): Response
     {
         $em->remove($tag);
-        $em->flush();
+        try{
+            $em->flush();
+            $this->addFlash('success', 'Tag supprimé !');
+
+        }catch(Exception $e){
+            $this->addFlash('danger', 'Echec lors de la suppression du tag !');
+        }
 
         return $this->redirectToRoute('tag_list');
     }
@@ -62,8 +68,10 @@ class TagController extends AbstractController
             $em->persist($tag);
 
             try{
-                $em->flush($tag);
+                $em->flush();
+                $this->addFlash('success', 'Tag crée !');
             }catch(Exception $e){
+                $this->addFlash('danger', 'Echec lors de la création du tag !');
                 return $this->redirectToRoute('tag_new');
             }
 
@@ -87,7 +95,13 @@ class TagController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
 
-            $em->flush();
+            try{
+                $em->flush();
+                $this->addFlash('success', 'Tag modifié !');
+
+            }catch(Exception $e){
+                $this->addFlash('danger', 'Echec lors de la modification du tag !');
+            }
             return $this->redirectToRoute('tag_list');
         }
 

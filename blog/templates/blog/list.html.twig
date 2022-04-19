@@ -4,6 +4,9 @@
 
 {% block body %}
     <h1>Articles : </h1>
+    {{ form_start(filter) }}
+    {{ form_widget(filter) }}
+    {{ form_end(filter) }}
     <div class="row">
 
         {% for article in articles %}
