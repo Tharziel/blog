@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Exception;
 use App\Entity\Tag;
 use App\Form\TagType;
 use App\Repository\TagRepository;
@@ -26,7 +27,7 @@ class TagController extends AbstractController
     }
 
     /**
-     * @Route("/tag/{id}", name="tag_show")
+     * @Route("/admin/tag/{id}", name="tag_show")
      */
     public function show(TagRepository $repo, $id): Response
     {
@@ -38,7 +39,7 @@ class TagController extends AbstractController
     }
 
     /**
-     * @Route("/supp-tag/{id}", name="tag_delete")
+     * @Route("/admin/supp-tag/{id}", name="tag_delete")
      */
     public function delete(Tag $tag, EntityManagerInterface $em): Response
     {
@@ -55,7 +56,7 @@ class TagController extends AbstractController
     }
 
     /**
-     * @Route("/nouveau-tag", name="tag_new")
+     * @Route("/admin/nouveau-tag", name="tag_new")
      */
     public function new(Request $request, EntityManagerInterface $em): Response
     {
@@ -85,7 +86,7 @@ class TagController extends AbstractController
     }
 
     /**
-     * @Route("/modifier-tag/{id}", name="tag_edit")
+     * @Route("/admin/modifier-tag/{id}", name="tag_edit")
      */
     public function edit(Tag $tag, Request $request, EntityManagerInterface $em): Response
     {

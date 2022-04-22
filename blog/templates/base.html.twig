@@ -15,38 +15,6 @@
     </head>
     <body>
     <header>
-{#<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="{{ path('homepage') }}">Les chroniques ordinaires d'un développeur extraordinaire |</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarColor03">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class=" nav-link active" href="{{ path('homepage') }}">Accueil</a>
-        </li>
-         <li class="nav-item"> 
-            <a class=" nav-link active" href="{{ path('about') }}">A propos</a>
-        </li>
-        <li class="nav-item"> 
-            <a class=" nav-link active" href="{{ path('blog_list') }}">Articles</a>
-        </li>
-        <li class="nav-item"> 
-            <a class=" nav-link active" href="{{ path('blog_new') }}">Créer un article</a>
-        </li>
-        <li class="nav-item"> 
-            <a class=" nav-link active" href="{{ path('category_list') }}">Catégories</a>
-        </li>
-        <li class="nav-item"> 
-            <a class=" nav-link active" href="{{ path('category_new') }}">Créer une catégorie</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>#}
-
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
@@ -63,28 +31,61 @@
         <li class="nav-item">
           <a class=" nav-link active" href="{{ path('about') }}">A propos</a>
         </li>
-        <li class="nav-item dropdown">
+      </ul>
+          </ul>
+          {% if app.user %}
+            {% if 'ROLE_ADMIN' in app.user.roles %}
+              <ul class="navbar-nav me-auto">
+              <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Créer</a>
+          <div class="dropdown-menu">
+            <a class=" nav-link active" href="{{ path('blog_new') }}">Créer un article</a>
+            <a class=" nav-link active" href="{{ path('category_new') }}">Créer une catégorie</a>    
+            <a class=" nav-link active" href="{{ path('tag_new') }}">Créer un tag</a>
+          </div>
+        </li>
+              
+              </ul>
+            {% endif %}
+          {% endif %}
+
+
+          <ul class="navbar-nav ms-auto">
+          {% if app.user %}
+          <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Articles</a>
           <div class="dropdown-menu">
             <a class=" nav-link active" href="{{ path('blog_list') }}">Articles</a>
             <a class=" nav-link active" href="{{ path('blog_new') }}">Créer un article</a>
           </div>
-        </li>
+          </li>
           <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Catégories</a>
           <div class="dropdown-menu">
             <a class=" nav-link active" href="{{ path('category_list') }}">Catégories</a>
-            <a class=" nav-link active" href="{{ path('category_new') }}">Créer une catégorie</a>
           </div>
         </li>
-                  <li class="nav-item dropdown">
+        <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Tags</a>
           <div class="dropdown-menu">
             <a class=" nav-link active" href="{{ path('tag_list') }}">Tags</a>
-            <a class=" nav-link active" href="{{ path('tag_new') }}">Créer un tag</a>
           </div>
         </li>
-      </ul>
+            <li class="nav-item">
+              <a class=" nav-link active" href=" {{ path('app_logout') }} ">Se déconnecter</a>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class=" nav-link active" href=" {{ path('app_login') }} ">Se connecter</a>
+            </li>
+            <li class="nav-item">
+              <a class=" nav-link active" href=" {{ path('app_register') }} ">S'inscrire</a>
+            </li>
+          
+          {% endif %}
+          </ul>
+
+          
     </div>
   </div>
 </nav>

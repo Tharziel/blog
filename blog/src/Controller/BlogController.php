@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BlogController extends AbstractController
@@ -42,7 +43,7 @@ class BlogController extends AbstractController
         /**
      * @Route("/nouvelle-article", name="blog_new")
      */
-    public function new(Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
+    public function new(TranslatorInterface $translator, Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
     {
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);//Opérateur de résolution de portée
@@ -56,7 +57,7 @@ class BlogController extends AbstractController
 
             try{
                 $em->flush();
-                $this->addFlash('success', 'Création de l\'article réussie !');
+                $this->addFlash('success', $translator->trans('article_creation_succes'));
             }catch(Exception $e){
                 $this->addFlash('danger', 'Echec lors de la création de l\'article !');
                 return $this->redirectToRoute('blog_new');
